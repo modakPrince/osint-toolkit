@@ -1,0 +1,25 @@
+{
+  "name": "osint-toolkit",
+  "version": "1.0.0",
+  "description": "An OSINT toolkit for intelligence gathering and digital forensics.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "autoprefixer": "latest"
+  },
+  "license": "MIT"
+}
