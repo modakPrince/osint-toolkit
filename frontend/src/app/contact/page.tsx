@@ -1,26 +1,34 @@
-import React from 'react';
+'use client';
+import { useState } from 'react';
+import PageHeader from '@/components/PageHeader';
+import SearchBar from '@/components/SearchBar';
+import ResultsPanel from '@/components/ResultsPanel';
 
-const ContactPage = () => {
-    return (
-        <div className="contact-container">
-            <h1>Contact Us</h1>
-            <form className="contact-form">
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    );
-};
+export default function ContactPage() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [results, setResults] = useState<any>(null);
 
-export default ContactPage;
+  const handleSearch = async (value: string) => {
+    setLoading(true);
+    setError(null);
+    setResults(null);
+    setTimeout(() => { setLoading(false); }, 1000);
+  };
+
+  return (
+    <div className="min-h-screen p-8">
+      <div className="max-w-4xl mx-auto">
+        <PageHeader
+          icon="📬"
+          title="Contact"
+          description="Get in touch with the team behind the OSINT Toolkit."
+        />
+        <SearchBar placeholder="Search FAQs..." onSearch={handleSearch} loading={loading} />
+        <ResultsPanel loading={loading} error={error} hasResults={!!results}>
+          <pre className="text-sm text-slate-300">{JSON.stringify(results, null, 2)}</pre>
+        </ResultsPanel>
+      </div>
+    </div>
+  );
+}

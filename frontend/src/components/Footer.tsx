@@ -1,17 +1,13 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
-    return (
-        <footer className="bg-gray-800 text-white py-4">
-            <div className="container mx-auto text-center">
-                <p>&copy; {new Date().getFullYear()} OSINT Toolkit. All rights reserved.</p>
-                <div className="flex justify-center space-x-4">
-                    <a href="/about" className="hover:underline">About</a>
-                    <a href="/contact" className="hover:underline">Contact</a>
-                </div>
-            </div>
-        </footer>
-    );
-};
 
-export default Footer;
+export default function Footer() {
+  return (
+    <footer className="bg-slate-950 border-t border-slate-800 py-6">
+      <div className="max-w-7xl mx-auto px-6 text-center text-slate-500 text-sm">
+        <p>OSINT Toolkit — Built for educational purposes only.</p>
+        <p className="mt-1">© 2026 Sem 6 Project. All rights reserved.</p>
+      </div>
+    </footer>
+  );
+}

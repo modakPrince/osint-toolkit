@@ -1,25 +1,34 @@
-import React from 'react';
+'use client';
+import { useState } from 'react';
+import PageHeader from '@/components/PageHeader';
+import SearchBar from '@/components/SearchBar';
+import ResultsPanel from '@/components/ResultsPanel';
 
-const AboutPage = () => {
-    return (
-        <div className="about-container">
-            <h1>About OSINT Toolkit</h1>
-            <p>
-                The OSINT Toolkit is designed to provide users with a comprehensive set of tools for open-source intelligence gathering and digital forensics. 
-                Our goal is to empower individuals and organizations to conduct thorough investigations and analyses using publicly available information.
-            </p>
-            <h2>Core Features</h2>
-            <ul>
-                <li>Core Intelligence Modules: Tools for domain reconnaissance, IP geolocation, email lookups, and social media profiling.</li>
-                <li>Digital Forensics Modules: Capabilities for metadata extraction, file analysis, hash verification, and network traffic analysis.</li>
-                <li>User-Friendly Interface: An intuitive design that makes it easy to navigate and utilize the toolkit's features.</li>
-            </ul>
-            <h2>Our Mission</h2>
-            <p>
-                We aim to provide a reliable and efficient toolkit for OSINT and digital forensics, helping users to uncover insights and make informed decisions based on data.
-            </p>
-        </div>
-    );
-};
+export default function AboutPage() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [results, setResults] = useState<any>(null);
 
-export default AboutPage;
+  const handleSearch = async (value: string) => {
+    setLoading(true);
+    setError(null);
+    setResults(null);
+    setTimeout(() => { setLoading(false); }, 1000);
+  };
+
+  return (
+    <div className="min-h-screen p-8">
+      <div className="max-w-4xl mx-auto">
+        <PageHeader
+          icon="ℹ️"
+          title="About"
+          description="Learn about the OSINT Toolkit project, its purpose and the team behind it."
+        />
+        <SearchBar placeholder="Search documentation..." onSearch={handleSearch} loading={loading} />
+        <ResultsPanel loading={loading} error={error} hasResults={!!results}>
+          <pre className="text-sm text-slate-300">{JSON.stringify(results, null, 2)}</pre>
+        </ResultsPanel>
+      </div>
+    </div>
+  );
+}

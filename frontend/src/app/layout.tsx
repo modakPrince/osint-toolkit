@@ -1,15 +1,22 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import type { Metadata } from 'next';
+import './globals.css';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
-const Layout = ({ children }) => {
-    return (
-        <div>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-        </div>
-    );
+export const metadata: Metadata = {
+  title: 'OSINT Toolkit',
+  description: 'Open Source Intelligence Toolkit',
 };
 
-export default Layout;
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-black text-white min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
+

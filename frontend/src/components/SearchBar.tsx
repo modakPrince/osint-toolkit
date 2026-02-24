@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
+'use client';
+import { useState } from 'react';
 
-const SearchBar: React.FC<{ onSearch: (query: string) => void }> = ({ onSearch }) => {
-    const [query, setQuery] = useState('');
+interface SearchBarProps {
+  placeholder: string;
+  buttonText?: string;
+  onSearch: (value: string) => void;
+  loading?: boolean;
+}
 
-    const handleSearch = (event: React.FormEvent) => {
-        event.preventDefault();
-        onSearch(query);
-        setQuery('');
-    };
+export default function SearchBar({ placeholder, buttonText = 'Analyze', onSearch, loading = false }: SearchBarProps) {
+  const [value, setValue] = useState('');
 
-    return (
-        <form onSubmit={handleSearch} className="flex items-center">
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search..."
-                className="border rounded-l px-4 py-2"
-            />
-            <button type="submit" className="bg-blue-500 text-white rounded-r px-4 py-2">
-                Search
-            </button>
-        </form>
-    );
-};
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (value.trim()) onSearch(value.trim());
+  };
 
-export default SearchBar;
+  return (
+    <form onSubmit={handleSubmit} className="flex gap-3 max-w-2xl mx-auto mb-10">
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={placeholder}
+        className="flex-1 bg-slate-950 border border-slate-700 px-4 py-3 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+      />
+      <button
+        type="submit"
+        disabled={loading || !value.trim()}
+        className="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed px-8 py-3 rounded-lg font-semibold text-white transition-colors"
+      >
+        {loading ? 'Scanning...' : buttonText}
+      </button>
+    </form>
+  );
+}
